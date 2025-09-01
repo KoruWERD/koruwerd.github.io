@@ -325,6 +325,17 @@
             text-align: center;
             padding: 2rem 0;
         }
+        
+        .fade-in-section {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        
+        .fade-in-section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
 
         @keyframes fadeInUp {
             from {
@@ -413,7 +424,7 @@
     </div>
 </section>
 
-        <section id="about" class="section">
+        <section id="about" class="section fade-in-section">
             <div class="container">
                 <h2 class="section-title">About Me</h2>
                 <div class="about-content">
@@ -543,6 +554,23 @@
     </footer>
 
     <script>
+        const observerOptions = {
+            threshold: 0.3,
+            rootMargin: '0px 0px -100px 0px'
+        };
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                } else {
+                    entry.target.classList.remove('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in-section').forEach(section => {
+            observer.observe(section);
+        });
         // Smooth scrolling for navigation links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
