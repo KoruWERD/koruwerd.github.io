@@ -245,7 +245,6 @@
           flex-wrap: nowrap;       /* ← important */
           gap: 2rem;               /* must match JS gap read */
           transition: transform 0.5s ease;
-          will-change: transform;
         }
         
         .carousel-slide {
@@ -772,7 +771,7 @@
               update() {
                   const step = this.slideWidth + this.gap;                  // px per card
                   const offset = Math.round(this.currentIndex * step);      // snap to int px
-                  this.track.style.transform = `translate3d(-${offset}px, 0, 0)`;
+                  this.track.style.transform = `translateX(-${offset}px)`;
                   this.updateDots();
               }
             
