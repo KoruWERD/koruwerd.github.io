@@ -230,9 +230,9 @@
         } */
 
         .projects-carousel {
-            position: relative;
-            max-width: 1200px;
-            margin: 0 auto;
+          position: relative;
+          max-width: 1200px;
+          margin: 0 auto;
         }
         
         .carousel-container {
@@ -240,11 +240,17 @@
             border-radius: 15px;
         }
         
-        .carousel-track { gap: 2rem; } /* keep your overflow/rounding as is */
+        .carousel-track {
+          display: flex;
+          flex-wrap: nowrap;       /* ← important */
+          gap: 2rem;               /* must match JS gap read */
+          transition: transform 0.5s ease;
+          will-change: transform;
+        }
         
         .carousel-slide {
-          flex: 0 0 calc((100% - 4rem) / 3);   /* NEW: explicit flex-basis */
-          min-width: calc((100% - 4rem) / 3);  /* keep this too */
+          flex: 0 0 calc((100% - 4rem) / 3);   /* 2 gaps × 2rem = 4rem */
+          min-width: calc((100% - 4rem) / 3);
         }
         
         .carousel-btn {
