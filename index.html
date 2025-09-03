@@ -229,27 +229,22 @@
             gap: 2rem;
         } */
 
-/*         .projects-carousel {
+        .projects-carousel {
             position: relative;
             max-width: 1200px;
             margin: 0 auto;
-            overflow: hidden;
-        } */
+        }
         
         .carousel-container {
             overflow: hidden;
             border-radius: 15px;
         }
         
-        .carousel-track {
-            display: flex;
-            transition: transform 0.5s ease;
-            gap: 2rem;
-        }
+        .carousel-track { gap: 2rem; } /* keep your overflow/rounding as is */
         
         .carousel-slide {
-            min-width: calc((100% - 4rem) / 3);
-            flex-shrink: 0;
+          flex: 0 0 calc((100% - 4rem) / 3);   /* NEW: explicit flex-basis */
+          min-width: calc((100% - 4rem) / 3);  /* keep this too */
         }
         
         .carousel-btn {
@@ -476,6 +471,7 @@
                 height: 250px;
             }
             .carousel-slide {
+                flex: 0 0 100%; 
                 min-width: 100%;
             }
             .carousel-track {
@@ -715,83 +711,84 @@
 
         // Carousel functionality
         class ProjectCarousel {
-            constructor() {
+              constructor() {
                 this.track = document.getElementById('carouselTrack');
-                this.slides = document.querySelectorAll('.carousel-slide');
+                this.slides = Array.from(document.querySelectorAll('.carousel-slide'));
                 this.prevBtn = document.getElementById('prevBtn');
                 this.nextBtn = document.getElementById('nextBtn');
                 this.dotsContainer = document.getElementById('carouselDots');
-                
-                this.currentSlide = 0;
-                this.totalSlides = this.slides.length;
-                
-                this.init();
-            }
             
-            init() {
+                this.currentIndex = 0;
+                this.maxVisible = 3;
+            
+                this.remeasure();
                 this.createDots();
-                this.updateCarousel();
+                this.update();
                 this.bindEvents();
-            }
             
-            createDots() {
-                const numDots = Math.max(1, this.totalSlides - 2);
-                for (let i = 0; i < numDots; i++) {
-                    const dot = document.createElement('div');
-                    dot.classList.add('carousel-dot');
-                    if (i === 0) dot.classList.add('active');
-                    dot.addEventListener('click', () => this.goToSlide(i));
-                    this.dotsContainer.appendChild(dot);
+                window.addEventListener('resize', this.onResize);
+              }
+            
+              onResize = () => {
+                const old = this.slideWidth;
+                this.remeasure();
+                if (this.slideWidth !== old) this.update();
+              };
+            
+              remeasure() {
+                const firstSlide = this.slides[0];
+                this.slideWidth = firstSlide.getBoundingClientRect().width;
+            
+                const styles = getComputedStyle(this.track);
+                const gapStr = styles.gap || styles.columnGap || '0px';
+                this.gap = parseFloat(gapStr) || 0;
+            
+                this.isMobile = window.matchMedia('(max-width: 768px)').matches;
+                this.visibleCount = this.isMobile ? 1 : this.maxVisible;
+                this.maxIndex = Math.max(0, this.slides.length - this.visibleCount);
+              }
+            
+              createDots() {
+                this.dotsContainer.innerHTML = '';
+                for (let i = 0; i <= this.maxIndex; i++) {
+                  const dot = document.createElement('div');
+                  dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
+                  dot.addEventListener('click', () => { this.currentIndex = i; this.update(); });
+                  this.dotsContainer.appendChild(dot);
                 }
-            }
+              }
             
-            updateCarousel() {
-                const slideWidth = 33.333; // Each slide is 1/3 of container (accounting for 3 cards visible)
-                const translateX = -this.currentSlide * slideWidth;
-                this.track.style.transform = `translateX(${translateX}%)`;
-                
-                // Update dots - only create dots for valid positions
-                document.querySelectorAll('.carousel-dot').forEach((dot, index) => {
-                    dot.classList.toggle('active', index === this.currentSlide);
-                });
-            }
+              updateDots() {
+                this.dotsContainer.querySelectorAll('.carousel-dot')
+                  .forEach((d, i) => d.classList.toggle('active', i === this.currentIndex));
+              }
             
-            nextSlide() {
-                if (this.currentSlide < this.totalSlides - 3) {
-                    this.currentSlide++;
-                    this.updateCarousel();
-                }
-            }
+              update() {
+                const offset = this.currentIndex * (this.slideWidth + this.gap);
+                this.track.style.transform = `translateX(-${offset}px)`;
+                this.updateDots();
+              }
             
-            prevSlide() {
-                if (this.currentSlide > 0) {
-                    this.currentSlide--;
-                    this.updateCarousel();
-                }
-            }
+              next = () => {
+                if (this.currentIndex < this.maxIndex) { this.currentIndex++; this.update(); }
+              }
+              prev = () => {
+                if (this.currentIndex > 0) { this.currentIndex--; this.update(); }
+              }
             
-            goToSlide(slideIndex) {
-                this.currentSlide = slideIndex;
-                this.updateCarousel();
-            }
-            
-            bindEvents() {
-                this.nextBtn.addEventListener('click', () => this.nextSlide());
-                this.prevBtn.addEventListener('click', () => this.prevSlide());
-                
+              bindEvents() {
+                this.nextBtn.addEventListener('click', this.next);
+                this.prevBtn.addEventListener('click', this.prev);
                 document.addEventListener('keydown', (e) => {
-                    if (e.key === 'ArrowLeft') this.prevSlide();
-                    if (e.key === 'ArrowRight') this.nextSlide();
+                  if (e.key === 'ArrowRight') this.next();
+                  if (e.key === 'ArrowLeft') this.prev();
                 });
+              }
             }
-        }
-        
-        // Wait for page to load before initializing carousel
-        document.addEventListener('DOMContentLoaded', function() {
-            setTimeout(() => {
-                new ProjectCarousel();
-            }, 500);
-        });
+            
+            document.addEventListener('DOMContentLoaded', () => {
+              new ProjectCarousel();
+            });
     </script>
 </body>
 </html>
