@@ -223,12 +223,82 @@
             font-size: 1.5rem;
         }
 
-        .projects-grid {
+/*         .projects-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
             gap: 2rem;
-        }
+        } */
 
+        .projects-carousel {
+            position: relative;
+            max-width: 1200px;
+            margin: 0 auto;
+            overflow: hidden;
+        }
+        
+        .carousel-container {
+            overflow: hidden;
+            border-radius: 15px;
+        }
+        
+        .carousel-track {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+        
+        .carousel-slide {
+            min-width: 100%;
+            max-width: 400px;
+            margin: 0 auto;
+            flex-shrink: 0;
+        }
+        
+        .carousel-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(44, 122, 123, 0.8);
+            color: white;
+            border: none;
+            padding: 15px 20px;
+            cursor: pointer;
+            font-size: 18px;
+            border-radius: 50%;
+            transition: background 0.3s ease;
+            z-index: 10;
+        }
+        
+        .carousel-btn:hover {
+            background: rgba(44, 122, 123, 1);
+        }
+        
+        .carousel-btn-prev {
+            left: 20px;
+        }
+        
+        .carousel-btn-next {
+            right: 20px;
+        }
+        
+        .carousel-dots {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+            gap: 10px;
+        }
+        
+        .carousel-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #ccc;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        
+        .carousel-dot.active {
+            background: #2c7a7b;
+        }
         .project-card {
             background: white;
             border-radius: 15px;
@@ -388,7 +458,6 @@
                 align-items: center;
             }
 
-            .projects-grid,
             .skills-grid {
                 grid-template-columns: 1fr;
             }
@@ -490,51 +559,65 @@
         <section id="projects" class="section fade-in-section">
             <div class="container">
                 <h2 class="section-title">Projects</h2>
-                <div class="projects-grid">
-                    <div class="project-card">
-                        <div class="project-img">
-                            <img src="im1.png" alt="Litter-acy App Screenshot" style="width: 100%; height: 100%; object-fit: cover; border-radius: 15px 15px 0 0;">
-                        </div>
-                        <div class="project-content">
-                            <h3 class="project-title">Litter-acy</h3>
-                            <p class="project-description">
-                                A mobile app that aims to teach users about waste management through fun and engaging techniques. Allows users to compete and make friends all while having fun!
-                            </p>
-                            <div class="project-links">
-                                <a href="https://apps.apple.com/us/app/litter-acy/id6745357965" class="project-link">App Store</a>
-                                <a href="https://github.com/justinc0251/senior-design" class="project-link">GitHub</a>
+                <div class="projects-carousel">
+                    <div class="carousel-container">
+                        <div class="carousel-track" id="carouselTrack">
+                            
+                            <!-- Keep your existing project cards but add carousel-slide class -->
+                            <div class="project-card carousel-slide">
+                                <div class="project-img">
+                                    <img src="im1.png" alt="Litter-acy App Screenshot" style="width: 100%; height: 100%; object-fit: cover; border-radius: 15px 15px 0 0;">
+                                </div>
+                                <div class="project-content">
+                                    <h3 class="project-title">Litter-acy</h3>
+                                    <p class="project-description">
+                                        A mobile app that aims to teach users about waste management through fun and engaging techniques. Allows users to compete and make friends all while having fun!
+                                    </p>
+                                    <div class="project-links">
+                                        <a href="https://apps.apple.com/us/app/litter-acy/id6745357965" class="project-link">App Store</a>
+                                        <a href="https://github.com/justinc0251/senior-design" class="project-link">GitHub</a>
+                                    </div>
+                                </div>
                             </div>
+                
+                            <div class="project-card carousel-slide">
+                                <div class="project-img">
+                                    <img src="im2.png" alt="CheckEasy Logo" style="width: 100%; height: 100%; object-fit: contain; background: white;">
+                                </div>
+                                <div class="project-content">
+                                    <h3 class="project-title">CheckEasy</h3>
+                                    <p class="project-description">
+                                        A web-based application that eases the process of scheduling. 
+                                    </p>
+                                    <div class="project-links">
+                                        <a href="https://ssl.students.engr.scu.edu/~zcommon/coen161/checkeasy/php/home.php" class="project-link">Live Demo</a>
+                                        <a href="https://github.com/yelir4/checkeasy" class="project-link">GitHub</a>
+                                    </div>
+                                </div>
+                            </div>
+                
+                            <div class="project-card carousel-slide">
+                                <div class="project-img" style="background-image: url('im4.png'); background-size: contain; background-position: center; background-repeat: no-repeat; background-color: #1a1a2e;">
+                                </div>
+                                <div class="project-content">
+                                    <h3 class="project-title">CourseSense</h3>
+                                    <p class="project-description">
+                                        SCU Registration site that utilizes machine learning and AI to help incoming and concurrent students better understand classes to register for.
+                                    </p>
+                                    <div class="project-links">
+                                        <a href="https://drive.google.com/file/d/1v2Fjxf6W4JV4IbzTPmb0NSmTS96HirnT/view?usp=sharing" class="project-link">Video</a>
+                                        <a href="https://github.com/CSEN-174-W25/csen-174-thebteam" class="project-link">GitHub</a>
+                                    </div>
+                                </div>
+                            </div>
+                
                         </div>
                     </div>
-                    <div class="project-card">
-                        <div class="project-img">
-                            <img src="im2.png" alt="CheckEasy Logo" style="width: 100%; height: 100%; object-fit: contain; background: white;">
-                        </div>
-                        <div class="project-content">
-                            <h3 class="project-title">CheckEasy</h3>
-                            <p class="project-description">
-                                A web-based application that eases the process of scheduling. 
-                            </p>
-                            <div class="project-links">
-                                <a href="https://ssl.students.engr.scu.edu/~zcommon/coen161/checkeasy/php/home.php" class="project-link">Live Demo</a>
-                                <a href="https://github.com/yelir4/checkeasy" class="project-link">GitHub</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="project-card">
-                        <div class="project-img" style="background-image: url('im4.png'); background-size: contain; background-position: center; background-repeat: no-repeat; background-color: #1a1a2e;">
-                        </div>
-                        <div class="project-content">
-                            <h3 class="project-title">CourseSense</h3>
-                            <p class="project-description">
-                                SCU Registration site that utilizes machine learning and AI to help incoming and concurrent students better understand classes to register for.
-                            </p>
-                            <div class="project-links">
-                                <a href="https://drive.google.com/file/d/1v2Fjxf6W4JV4IbzTPmb0NSmTS96HirnT/view?usp=sharing" class="project-link">Video</a>
-                                <a href="https://github.com/CSEN-174-W25/csen-174-thebteam" class="project-link">GitHub</a>
-                            </div>
-                        </div>
-                    </div>
+                    
+                    <button class="carousel-btn carousel-btn-prev" id="prevBtn">❮</button>
+                    <button class="carousel-btn carousel-btn-next" id="nextBtn">❯</button>
+                    
+                    <div class="carousel-dots" id="carouselDots"></div>
                 </div>
             </div>
         </section>
@@ -610,6 +693,138 @@
                 header.style.background = 'rgba(26, 54, 93, 0.9)';
             }
         });
+        Find this section:
+html<div class="projects-grid">
+    <!-- your three project cards -->
+</div>
+Replace it with:
+html<div class="projects-carousel">
+    <div class="carousel-container">
+        <div class="carousel-track" id="carouselTrack">
+            
+            <!-- Keep your existing project cards but add carousel-slide class -->
+            <div class="project-card carousel-slide">
+                <div class="project-img">
+                    <img src="im1.png" alt="Litter-acy App Screenshot" style="width: 100%; height: 100%; object-fit: cover; border-radius: 15px 15px 0 0;">
+                </div>
+                <div class="project-content">
+                    <h3 class="project-title">Litter-acy</h3>
+                    <p class="project-description">
+                        A mobile app that aims to teach users about waste management through fun and engaging techniques. Allows users to compete and make friends all while having fun!
+                    </p>
+                    <div class="project-links">
+                        <a href="https://apps.apple.com/us/app/litter-acy/id6745357965" class="project-link">App Store</a>
+                        <a href="https://github.com/justinc0251/senior-design" class="project-link">GitHub</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card carousel-slide">
+                <div class="project-img">
+                    <img src="im2.png" alt="CheckEasy Logo" style="width: 100%; height: 100%; object-fit: contain; background: white;">
+                </div>
+                <div class="project-content">
+                    <h3 class="project-title">CheckEasy</h3>
+                    <p class="project-description">
+                        A web-based application that eases the process of scheduling. 
+                    </p>
+                    <div class="project-links">
+                        <a href="https://ssl.students.engr.scu.edu/~zcommon/coen161/checkeasy/php/home.php" class="project-link">Live Demo</a>
+                        <a href="https://github.com/yelir4/checkeasy" class="project-link">GitHub</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card carousel-slide">
+                <div class="project-img" style="background-image: url('im4.png'); background-size: contain; background-position: center; background-repeat: no-repeat; background-color: #1a1a2e;">
+                </div>
+                <div class="project-content">
+                    <h3 class="project-title">CourseSense</h3>
+                    <p class="project-description">
+                        SCU Registration site that utilizes machine learning and AI to help incoming and concurrent students better understand classes to register for.
+                    </p>
+                    <div class="project-links">
+                        <a href="https://drive.google.com/file/d/1v2Fjxf6W4JV4IbzTPmb0NSmTS96HirnT/view?usp=sharing" class="project-link">Video</a>
+                        <a href="https://github.com/CSEN-174-W25/csen-174-thebteam" class="project-link">GitHub</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    
+    <button class="carousel-btn carousel-btn-prev" id="prevBtn">❮</button>
+    <button class="carousel-btn carousel-btn-next" id="nextBtn">❯</button>
+    
+    <div class="carousel-dots" id="carouselDots"></div>
+</div>
+class ProjectCarousel {
+    constructor() {
+        this.track = document.getElementById('carouselTrack');
+        this.slides = document.querySelectorAll('.carousel-slide');
+        this.prevBtn = document.getElementById('prevBtn');
+        this.nextBtn = document.getElementById('nextBtn');
+        this.dotsContainer = document.getElementById('carouselDots');
+        
+        this.currentSlide = 0;
+        this.totalSlides = this.slides.length;
+        
+        this.init();
+    }
+    
+    init() {
+        this.createDots();
+        this.updateCarousel();
+        this.bindEvents();
+    }
+    
+    createDots() {
+        for (let i = 0; i < this.totalSlides; i++) {
+            const dot = document.createElement('div');
+            dot.classList.add('carousel-dot');
+            if (i === 0) dot.classList.add('active');
+            dot.addEventListener('click', () => this.goToSlide(i));
+            this.dotsContainer.appendChild(dot);
+        }
+    }
+    
+    updateCarousel() {
+        const translateX = -this.currentSlide * 100;
+        this.track.style.transform = `translateX(${translateX}%)`;
+        
+        document.querySelectorAll('.carousel-dot').forEach((dot, index) => {
+            dot.classList.toggle('active', index === this.currentSlide);
+        });
+    }
+    
+    nextSlide() {
+        this.currentSlide = (this.currentSlide + 1) % this.totalSlides;
+        this.updateCarousel();
+    }
+    
+    prevSlide() {
+        this.currentSlide = (this.currentSlide - 1 + this.totalSlides) % this.totalSlides;
+        this.updateCarousel();
+    }
+    
+    goToSlide(slideIndex) {
+        this.currentSlide = slideIndex;
+        this.updateCarousel();
+    }
+    
+    bindEvents() {
+        this.nextBtn.addEventListener('click', () => this.nextSlide());
+        this.prevBtn.addEventListener('click', () => this.prevSlide());
+        
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft') this.prevSlide();
+            if (e.key === 'ArrowRight') this.nextSlide();
+        });
+    }
+}
+
+
+    new ProjectCarousel();
     </script>
 </body>
 </html>
