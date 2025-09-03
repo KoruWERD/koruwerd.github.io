@@ -244,12 +244,11 @@
         .carousel-track {
             display: flex;
             transition: transform 0.5s ease;
+            gap: 2rem;
         }
         
         .carousel-slide {
-            min-width: 100%;
-            max-width: 400px;
-            margin: 0 auto;
+            min-width: calc((100% - 4rem) / 3); /* Show 3 cards */
             flex-shrink: 0;
         }
         
@@ -475,6 +474,12 @@
             .profile-photo-placeholder {
                 width: 250px;
                 height: 250px;
+            }
+            .carousel-slide {
+                min-width: 100%;
+            }
+            .carousel-track {
+                gap: 0;
             }
         }
     </style>
@@ -727,8 +732,9 @@
             }
             
             updateCarousel() {
-                const translateX = -this.currentSlide * 100;
-                this.track.style.transform = `translateX(${translateX}%)`;
+                const slideWidth = this.slides[0].offsetWidth + 32; // Include gap
+                const translateX = -this.currentSlide * slideWidth;
+                this.track.style.transform = `translateX(${translateX}px)`;
                 
                 document.querySelectorAll('.carousel-dot').forEach((dot, index) => {
                     dot.classList.toggle('active', index === this.currentSlide);
