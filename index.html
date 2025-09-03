@@ -735,7 +735,8 @@
             }
             
             createDots() {
-                for (let i = 0; i < this.totalSlides; i++) {
+                const numDots = Math.max(1, this.totalSlides - 2);
+                for (let i = 0; i < numDots; i++) {
                     const dot = document.createElement('div');
                     dot.classList.add('carousel-dot');
                     if (i === 0) dot.classList.add('active');
@@ -745,23 +746,28 @@
             }
             
             updateCarousel() {
-                const slideWidth = 100 / 3; // Each slide is 1/3 of container
+                const slideWidth = 33.333; // Each slide is 1/3 of container (accounting for 3 cards visible)
                 const translateX = -this.currentSlide * slideWidth;
                 this.track.style.transform = `translateX(${translateX}%)`;
                 
+                // Update dots - only create dots for valid positions
                 document.querySelectorAll('.carousel-dot').forEach((dot, index) => {
                     dot.classList.toggle('active', index === this.currentSlide);
                 });
             }
             
             nextSlide() {
-                this.currentSlide = (this.currentSlide + 1) % this.totalSlides;
-                this.updateCarousel();
+                if (this.currentSlide < this.totalSlides - 3) {
+                    this.currentSlide++;
+                    this.updateCarousel();
+                }
             }
             
             prevSlide() {
-                this.currentSlide = (this.currentSlide - 1 + this.totalSlides) % this.totalSlides;
-                this.updateCarousel();
+                if (this.currentSlide > 0) {
+                    this.currentSlide--;
+                    this.updateCarousel();
+                }
             }
             
             goToSlide(slideIndex) {
