@@ -670,6 +670,7 @@
         document.querySelectorAll('.fade-in-section').forEach(section => {
             observer.observe(section);
         });
+        
         // Smooth scrolling for navigation links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
@@ -693,71 +694,8 @@
                 header.style.background = 'rgba(26, 54, 93, 0.9)';
             }
         });
-        Find this section:
-html<div class="projects-grid">
-    <!-- your three project cards -->
-</div>
-Replace it with:
-html<div class="projects-carousel">
-    <div class="carousel-container">
-        <div class="carousel-track" id="carouselTrack">
-            
-            <!-- Keep your existing project cards but add carousel-slide class -->
-            <div class="project-card carousel-slide">
-                <div class="project-img">
-                    <img src="im1.png" alt="Litter-acy App Screenshot" style="width: 100%; height: 100%; object-fit: cover; border-radius: 15px 15px 0 0;">
-                </div>
-                <div class="project-content">
-                    <h3 class="project-title">Litter-acy</h3>
-                    <p class="project-description">
-                        A mobile app that aims to teach users about waste management through fun and engaging techniques. Allows users to compete and make friends all while having fun!
-                    </p>
-                    <div class="project-links">
-                        <a href="https://apps.apple.com/us/app/litter-acy/id6745357965" class="project-link">App Store</a>
-                        <a href="https://github.com/justinc0251/senior-design" class="project-link">GitHub</a>
-                    </div>
-                </div>
-            </div>
 
-            <div class="project-card carousel-slide">
-                <div class="project-img">
-                    <img src="im2.png" alt="CheckEasy Logo" style="width: 100%; height: 100%; object-fit: contain; background: white;">
-                </div>
-                <div class="project-content">
-                    <h3 class="project-title">CheckEasy</h3>
-                    <p class="project-description">
-                        A web-based application that eases the process of scheduling. 
-                    </p>
-                    <div class="project-links">
-                        <a href="https://ssl.students.engr.scu.edu/~zcommon/coen161/checkeasy/php/home.php" class="project-link">Live Demo</a>
-                        <a href="https://github.com/yelir4/checkeasy" class="project-link">GitHub</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="project-card carousel-slide">
-                <div class="project-img" style="background-image: url('im4.png'); background-size: contain; background-position: center; background-repeat: no-repeat; background-color: #1a1a2e;">
-                </div>
-                <div class="project-content">
-                    <h3 class="project-title">CourseSense</h3>
-                    <p class="project-description">
-                        SCU Registration site that utilizes machine learning and AI to help incoming and concurrent students better understand classes to register for.
-                    </p>
-                    <div class="project-links">
-                        <a href="https://drive.google.com/file/d/1v2Fjxf6W4JV4IbzTPmb0NSmTS96HirnT/view?usp=sharing" class="project-link">Video</a>
-                        <a href="https://github.com/CSEN-174-W25/csen-174-thebteam" class="project-link">GitHub</a>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </div>
-    
-    <button class="carousel-btn carousel-btn-prev" id="prevBtn">❮</button>
-    <button class="carousel-btn carousel-btn-next" id="nextBtn">❯</button>
-    
-    <div class="carousel-dots" id="carouselDots"></div>
-</div>
+        // Carousel functionality
         class ProjectCarousel {
             constructor() {
                 this.track = document.getElementById('carouselTrack');
@@ -829,7 +767,6 @@ html<div class="projects-carousel">
                 new ProjectCarousel();
             }, 500);
         });
-</script>
     </script>
 </body>
 </html>
