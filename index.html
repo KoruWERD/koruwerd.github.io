@@ -770,9 +770,10 @@
               }
             
               update() {
-                const offset = this.currentIndex * (this.slideWidth + this.gap);
-                this.track.style.transform = `translateX(-${offset}px)`;
-                this.updateDots();
+                  const step = this.slideWidth + this.gap;                  // px per card
+                  const offset = Math.round(this.currentIndex * step);      // snap to int px
+                  this.track.style.transform = `translate3d(-${offset}px, 0, 0)`;
+                  this.updateDots();
               }
             
               next = () => {
